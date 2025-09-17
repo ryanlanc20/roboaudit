@@ -188,3 +188,22 @@ Download to a folder of your choice, and make sure your .env file is in the same
   * EXCEPTIONS
     * [404] Audit not found - {"msg": string}
     * [500] Internal server error - {"msg": string}
+      
+## Using Docker
+This repository contains a ```docker-compose.yml``` file that starts two containers for the following services:
+* MySQL database
+* PHPMyAdmin
+
+This file is primarily intended for development and allows us to rapidly spin up a development environment. If you wish
+to use it in development, you can do so by typing the following command into your terminal in the same folder as the source folder.
+
+```bash
+docker-compose up
+```
+
+This file is not secure enough for production, due to the weak password and open ports (3306 and 8081). If you know how to
+work with docker-compose files, and are familiar with network security more generally, please feel free to use this file
+as a template to build upon.
+
+Note: If you modify ```docker-compose.yml```, the changes will not be pushed to this repository. This is by design to minimize
+friction during development.
