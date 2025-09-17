@@ -48,3 +48,135 @@ executable for your platform and start it!
 Navigate to https://github.com/ryanlanc20/roboaudit/releases and select the latest executable for your platform.
 
 Download to a folder of your choice, and make sure your .env file is in the same folder!
+
+## API documentation (v1.0.0)
+### [GET] /audits/:offset/:limit - Retrieves audits using pagination parameters
+  * PARAMS
+    * offset[int >= 0] : Index of first result (i.e., pagenum * resultsperpage)
+    * limit[int >= 1] : Maximum number of results to return (i.e., 10, 25, 50, 100)
+  * RESPONSE (200 OK)
+    ```json
+      {
+        "msg": string,
+        "data": [
+          {
+            "id": uuidv4,
+            "prompt": string,
+            "response": string,
+            "createdAt": date,
+            "updatedAt": date,
+            "RubricRating": {
+              "truthfulness": oneof("CORRECT", "MINOR_ERRORS", "MAJOR_ERRORS"),
+              "detail": oneof("TOO_SHORT", "BALANCED", "TOO_LONG"),
+              "safety": oneof("SAFE", "UNSAFE"),
+              "quality": oneof("BAD", "OKAY", "GOOD", "EXCELLENT")
+            }
+          },
+          ...
+        ],
+        "total_audits": int
+      }
+    ```
+  * EXCEPTIONS
+    * [404] Audits not found - {"msg": string}
+    * [500] Internal server error - {"msg": string}
+### [GET] /audit/:id - Retrieves the specified audit
+  * PARAMS
+    * id[uuidv4] : ID of audit to fetch
+  * RESPONSE (200 OK)
+    ```json
+      {
+        "msg": string,
+        "data": {
+          "id": uuidv4,
+          "prompt": string,
+          "response": string,
+          "createdAt": date,
+          "updatedAt": date,
+          "RubricRating": {
+            "truthfulness": oneof("CORRECT", "MINOR_ERRORS", "MAJOR_ERRORS"),
+            "detail": oneof("TOO_SHORT", "BALANCED", "TOO_LONG"),
+            "safety": oneof("SAFE", "UNSAFE"),
+            "quality": oneof("BAD", "OKAY", "GOOD", "EXCELLENT")
+          }
+        }
+      }
+    ```
+  * EXCEPTIONS
+    * [404] Audit not found - {"msg": string}
+    * [500] Internal server error - {"msg": string}
+### [POST] /audit - Create audit
+  * BODY
+    ```json
+      {
+        "prompt": string,
+        "response": string,
+        "truthfulness": oneof("CORRECT", "MINOR_ERRORS", "MAJOR_ERRORS"),
+        "detail": oneof("TOO_SHORT", "BALANCED", "TOO_LONG"),
+        "safety": oneof("SAFE", "UNSAFE"),
+        "quality": oneof("BAD", "OKAY", "GOOD", "EXCELLENT")
+      }
+    ```
+  * RESPONSE (200 OK)
+    ```json
+      {
+        "msg": string,
+        "data": {
+          "id": uuidv4,
+          "prompt": string,
+          "response": string,
+          "createdAt": date,
+          "updatedAt": date,
+          "RubricRating": {
+            "truthfulness": oneof("CORRECT", "MINOR_ERRORS", "MAJOR_ERRORS"),
+            "detail": oneof("TOO_SHORT", "BALANCED", "TOO_LONG"),
+            "safety": oneof("SAFE", "UNSAFE"),
+            "quality": oneof("BAD", "OKAY", "GOOD", "EXCELLENT")
+          }
+        }
+      }
+    ```
+  * EXCEPTIONS
+    * [500] Internal server error - {"msg": string}
+### [PATCH] /audit/:id - Edit a particular audit
+  * PARAMS
+    * id[uuidv4] : ID of audit to edit
+  * BODY
+    ```json
+      {
+        "truthfulness": oneof("CORRECT", "MINOR_ERRORS", "MAJOR_ERRORS"),
+        "detail": oneof("TOO_SHORT", "BALANCED", "TOO_LONG"),
+        "safety": oneof("SAFE", "UNSAFE"),
+        "quality": oneof("BAD", "OKAY", "GOOD", "EXCELLENT")
+      }
+    ```
+  * RESPONSE (200 OK)
+    ```json
+      {
+        "msg": string,
+        "data": {
+          "truthfulness": oneof("CORRECT", "MINOR_ERRORS", "MAJOR_ERRORS"),
+          "detail": oneof("TOO_SHORT", "BALANCED", "TOO_LONG"),
+          "safety": oneof("SAFE", "UNSAFE"),
+          "quality": oneof("BAD", "OKAY", "GOOD", "EXCELLENT")
+        }
+      }
+    ```
+  * EXCEPTIONS
+    * [404] Audit not found - {"msg": string}
+    * [500] Internal server error - {"msg": string}
+### [DELETE] /audit/:id - Delete a particular audit
+  * PARAMS
+    * id[uuidv4] : ID of audit to delete
+  * RESPONSE (200 OK)
+    ```json
+      {
+        "msg": string,
+        "data": {
+          "id": string
+        }
+      }
+    ```
+  * EXCEPTIONS
+    * [404] Audit not found - {"msg": string}
+    * [500] Internal server error - {"msg": string}
