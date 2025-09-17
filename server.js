@@ -458,17 +458,22 @@ AuditsModel.hasOne(RubricRatingsModel, {"foreignKey": "audit_id"});
       throw e;
     }
 
+    const creationDate = (new Date()).toISOString();
     return res.status(200).send({
       "msg": "Successfully created audit!",
       "data": {
         "id": auditId,
         "prompt": prompt,
         "response": response,
+        "createdAt": creationDate,
+        "updatedAt": creationDate,
         "RubricRating": {
           "truthfulness": truthfulness,
           "detail": detail,
           "safety": safety,
           "quality": quality,
+          "createdAt": creationDate,
+          "updatedAt": creationDate,
         },
       },
     });
@@ -497,6 +502,9 @@ AuditsModel.hasOne(RubricRatingsModel, {"foreignKey": "audit_id"});
       },
     );
 
+    req.formData.createdAt = audit.createdAt;
+    req.formData.updatedAt = (new Date()).toISOString();
+    
     return res.status(200).send({
       "msg": "Successfully updated audit ratings!",
       "data": req.formData,

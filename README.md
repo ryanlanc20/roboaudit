@@ -63,13 +63,15 @@ Download to a folder of your choice, and make sure your .env file is in the same
             "id": uuidv4,
             "prompt": string,
             "response": string,
-            "createdAt": date,
-            "updatedAt": date,
+            "createdAt": ISO8601DATE,
+            "updatedAt": ISO8601DATE,
             "RubricRating": {
               "truthfulness": oneof("CORRECT", "MINOR_ERRORS", "MAJOR_ERRORS"),
               "detail": oneof("TOO_SHORT", "BALANCED", "TOO_LONG"),
               "safety": oneof("SAFE", "UNSAFE"),
-              "quality": oneof("BAD", "OKAY", "GOOD", "EXCELLENT")
+              "quality": oneof("BAD", "OKAY", "GOOD", "EXCELLENT"),
+              "createdAt": ISO8601DATE,
+              "updatedAt": ISO8601DATE
             }
           },
           ...
@@ -91,13 +93,15 @@ Download to a folder of your choice, and make sure your .env file is in the same
           "id": uuidv4,
           "prompt": string,
           "response": string,
-          "createdAt": date,
-          "updatedAt": date,
+          "createdAt": ISO8601DATE,
+          "updatedAt": ISO8601DATE,
           "RubricRating": {
             "truthfulness": oneof("CORRECT", "MINOR_ERRORS", "MAJOR_ERRORS"),
             "detail": oneof("TOO_SHORT", "BALANCED", "TOO_LONG"),
             "safety": oneof("SAFE", "UNSAFE"),
-            "quality": oneof("BAD", "OKAY", "GOOD", "EXCELLENT")
+            "quality": oneof("BAD", "OKAY", "GOOD", "EXCELLENT"),
+            "createdAt": ISO8601DATE,
+            "updatedAt": ISO8601DATE
           }
         }
       }
@@ -125,13 +129,15 @@ Download to a folder of your choice, and make sure your .env file is in the same
           "id": uuidv4,
           "prompt": string,
           "response": string,
-          "createdAt": date,
-          "updatedAt": date,
+          "createdAt": ISO8601DATE,
+          "updatedAt": ISO8601DATE,
           "RubricRating": {
             "truthfulness": oneof("CORRECT", "MINOR_ERRORS", "MAJOR_ERRORS"),
             "detail": oneof("TOO_SHORT", "BALANCED", "TOO_LONG"),
             "safety": oneof("SAFE", "UNSAFE"),
-            "quality": oneof("BAD", "OKAY", "GOOD", "EXCELLENT")
+            "quality": oneof("BAD", "OKAY", "GOOD", "EXCELLENT"),
+            "createdAt": ISO8601DATE,
+            "updatedAt": ISO8601DATE
           }
         }
       }
@@ -158,7 +164,9 @@ Download to a folder of your choice, and make sure your .env file is in the same
           "truthfulness": oneof("CORRECT", "MINOR_ERRORS", "MAJOR_ERRORS"),
           "detail": oneof("TOO_SHORT", "BALANCED", "TOO_LONG"),
           "safety": oneof("SAFE", "UNSAFE"),
-          "quality": oneof("BAD", "OKAY", "GOOD", "EXCELLENT")
+          "quality": oneof("BAD", "OKAY", "GOOD", "EXCELLENT"),
+          "createdAt": ISO8601DATE,
+          "updatedAt": ISO8601DATE
         }
       }
     ```
